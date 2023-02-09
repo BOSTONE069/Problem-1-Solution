@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 
-def maxA(N):
+def find_x(n, isTooSweet):
     """
-    For each i, we try every possible j such that j < i - 2, and we take the maximum of all the possible values of dp[j] *
-    (i - j - 1)
+    It finds the smallest x such that isTooSweet(x) is True
 
-    :param N: the number of keystrokes we have
-    :return: The maximum number of A's that can be printed using N keystrokes.
+    :param n: the maximum value of x
+    :param isTooSweet: a function that takes in a number and returns True if the number is too sweet, False otherwise
+    :return: The number of cookies that can be made with the given ingredients.
     """
-    dp = [0] * (N + 1)
-    for i in range(1, N + 1):
-        dp[i] = dp[i - 1] + 1
-        for j in range(2, i - 2):
-            dp[i] = max(dp[i], dp[j] * (i - j - 1))
-    return dp[N]
+    l = 0
+    r = n
+    while l < r:
+        mid = (l + r) // 2
+        if isTooSweet(mid):
+            r = mid
+        else:
+            l = mid + 1
+    return l
+
+
